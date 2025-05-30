@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalBlog.Data;
+using PersonalBlog.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PersonalBlogContext>(options 
     => options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogDb")));
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 var app = builder.Build();
 
