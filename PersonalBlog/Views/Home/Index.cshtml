@@ -1,8 +1,44 @@
-﻿@{
+﻿@using System.Text
+@using System.Text.RegularExpressions
+@model List<PersonalBlog.Models.Article>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="text-center display-4 mb-5">My Blog</h1>
+
+<div class="container">
+    <div class="row g-3">
+        @foreach (var article in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id" asp-action="Article">@article.Title</a>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            Published on @Html.DisplayFor(m => article.PublishDate)
+                        </h6>
+                        <p class="card-text">
+                            @{
+                                int charLimit = 150;
+                                int i = 0;
+                                string preview = "";
+                                while (true)
+                                {
+                                    char curr = article.Content[i];
+                                    if (i >= charLimit && Regex.IsMatch(curr.ToString(), @"[\W]"))
+                                        break;
+                                    preview += curr;
+                                    i++;
+                                }
+
+                                preview += "...";
+                            }
+                            @preview
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
