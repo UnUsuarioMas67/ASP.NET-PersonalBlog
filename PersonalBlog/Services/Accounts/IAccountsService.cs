@@ -1,8 +1,8 @@
 ﻿using PersonalBlog.Models;
 
-namespace PersonalBlog.Services;
+namespace PersonalBlog.Services.Accounts;
 
-public interface IAccountService
+public interface IAccountsService
 {
     Account? Login(string username, string password);
 }

@@ -1,8 +1,8 @@
 ﻿using PersonalBlog.Models;
 
-namespace PersonalBlog.Services;
+namespace PersonalBlog.Services.Accounts;
 
-public class AccountService : IAccountService
+public class AccountsService : IAccountsService
 {
     private readonly List<Account> _accounts = new List<Account>
     {
