@@ -12,7 +12,7 @@ using PersonalBlog.Data;
 namespace PersonalBlog.Migrations
 {
     [DbContext(typeof(PersonalBlogContext))]
-    [Migration("20250530023232_CreateDb")]
+    [Migration("20250530033032_CreateDb")]
     partial class CreateDb
     {
         /// <inheritdoc />
@@ -35,10 +35,11 @@ namespace PersonalBlog.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasMaxLength(2147483647)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()

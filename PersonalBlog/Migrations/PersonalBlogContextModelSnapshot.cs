@@ -32,10 +32,11 @@ namespace PersonalBlog.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasMaxLength(2147483647)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .IsRequired()
