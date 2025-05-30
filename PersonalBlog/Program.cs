@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using PersonalBlog.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<PersonalBlogContext>(options 
+    => options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogDb")));
 
 var app = builder.Build();
 
