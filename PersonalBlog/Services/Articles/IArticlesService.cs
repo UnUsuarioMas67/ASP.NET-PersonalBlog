@@ -1,8 +1,8 @@
 ﻿using PersonalBlog.Models;
 
-namespace PersonalBlog.Services;
+namespace PersonalBlog.Services.Articles;
 
-public interface IArticleService
+public interface IArticlesService
 {
     Task<List<Article>> GetAllAsync();
     Task<Article?> GetByIdAsync(int id);

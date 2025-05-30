@@ -2,13 +2,13 @@
 using PersonalBlog.Data;
 using PersonalBlog.Models;
 
-namespace PersonalBlog.Services;
+namespace PersonalBlog.Services.Articles;
 
-public class ArticleService : IArticleService
+public class ArticlesService : IArticlesService
 {
     private readonly PersonalBlogContext _context;
 
-    public ArticleService(PersonalBlogContext context)
+    public ArticlesService(PersonalBlogContext context)
     {
         _context = context;
     }

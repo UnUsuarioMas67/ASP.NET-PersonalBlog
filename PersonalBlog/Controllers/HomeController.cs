@@ -2,23 +2,24 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Models;
 using PersonalBlog.Services;
+using PersonalBlog.Services.Articles;
 
 namespace PersonalBlog.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IArticleService _articleService;
+    private readonly IArticlesService _articlesService;
 
-    public HomeController(ILogger<HomeController> logger, IArticleService articleService)
+    public HomeController(ILogger<HomeController> logger, IArticlesService articlesService)
     {
         _logger = logger;
-        _articleService = articleService;
+        _articlesService = articlesService;
     }
 
     public async Task<IActionResult> Index()
     {
-        return View(await _articleService.GetAllAsync());
+        return View(await _articlesService.GetAllAsync());
     }
 
     public async Task<IActionResult> Article(int? id)
@@ -26,7 +27,7 @@ public class HomeController : Controller
         if (id == null)
             return NotFound();
         
-        var article = await _articleService.GetByIdAsync(id.Value);
+        var article = await _articlesService.GetByIdAsync(id.Value);
         if (article == null)
             return NotFound();
         return View(article);
