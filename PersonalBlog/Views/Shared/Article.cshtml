@@ -1,0 +1,14 @@
+﻿@using System.Text.RegularExpressions
+@model PersonalBlog.Models.Article
+
+<div class="container">
+    <h1 class="fw-bold mb-4">@Model.Title</h1>
+    <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
+    @{
+        var paragraphs = Regex.Split(Model.Content, "[\r\n]+");
+    }
+    @foreach (var paragraph in paragraphs)
+    {
+        <p>@paragraph</p>
+    }
+</div>

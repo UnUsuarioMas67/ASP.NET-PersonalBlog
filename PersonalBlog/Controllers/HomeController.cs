@@ -22,9 +22,16 @@ public class HomeController : Controller
         return View(await _context.Articles.ToListAsync());
     }
 
-    public IActionResult Privacy()
+    public async Task<IActionResult> Article(int? id)
     {
-        return View();
+        if (id == null)
+            return NotFound();
+        
+        var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == id);
+        if (article == null)
+            return NotFound();
+        
+        return View(article);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
