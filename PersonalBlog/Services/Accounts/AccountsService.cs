@@ -10,6 +10,11 @@ public class AccountsService : IAccountsService
         new  Account() {Username = "julioperez123",  Password = "123456"},
     };
     
-    public Account? Login(string username, string password)
-        => _accounts.FirstOrDefault(x => x.Username == username && x.Password == password);
+    public Account? LoggedInAccount { get; private set; }
+    public bool IsLoggedIn => LoggedInAccount != null;
+
+    public void Login(string username, string password)
+    {
+        LoggedInAccount = _accounts.SingleOrDefault(x => x.Username == username && x.Password == password);
+    }
 }
