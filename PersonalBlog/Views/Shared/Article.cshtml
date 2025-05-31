@@ -6,13 +6,15 @@
 
 <div class="container">
     <a asp-action="Index">Go Back</a>
-    <h1 class="fw-light mt-3 mb-4">@Model.Title</h1>
-    <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
+    <div class="mb-4">
+        <h1 class="fw-light mt-3 mb-3">@Model.Title</h1>
+        <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
+    </div>
     @{
         var paragraphs = Regex.Split(Model.Content, "[\r\n]+");
     }
     @foreach (var paragraph in paragraphs)
     {
-        <p>@paragraph</p>
+        <p class="fs-5">@paragraph</p>
     }
 </div>
