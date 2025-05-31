@@ -1,1 +1,31 @@
-﻿<h1>THIS IS THE ADMIN PAGE</h1>
+﻿@model List<PersonalBlog.Models.Article>
+
+<div class="container">
+    <div class="mb-5">
+        <h1 class="">Welcome @ViewBag.Username!</h1>
+        <a class="link-body-emphasis d-block fs-4">+ Add</a>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var article in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
+                           asp-action="Article">@article.Title</a>
+
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            Published on @Html.DisplayFor(m => article.PublishDate)
+                        </h6>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-primary">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

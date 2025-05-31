@@ -17,15 +17,6 @@ public class AdminController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index()
-    {
-        if (!_accountsService.IsLoggedIn)
-            return RedirectToAction(nameof(Login));
-        
-        return View();
-    }
-    
-    [HttpGet]
     public IActionResult Login()
     {
         return View(new LoginViewModel());
@@ -38,11 +29,35 @@ public class AdminController : Controller
             return View(login);
         
         login.Failed = !_accountsService.Login(login.Username, login.Password);
-        if (login.Failed)
-        {
-            return View(login);
-        }
+        if (login.Failed) return View(login);
         
         return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        if (!_accountsService.IsLoggedIn)
+            return RedirectToAction(nameof(Login));
+        
+        ViewBag.Username = _accountsService.LoggedInAccount!.Username;
+        return View(await _articlesService.GetAllAsync());
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Article(int? id)
+    {
+        if (!_accountsService.IsLoggedIn)
+            return RedirectToAction(nameof(Login));
+        ViewBag.Username = _accountsService.LoggedInAccount!.Username;
+        
+        if (id == null)
+            return NotFound();
+        
+        var article = await _articlesService.GetByIdAsync(id.Value);
+        if (article == null)
+            return NotFound();
+        
+        return View(article);
     }
 }
