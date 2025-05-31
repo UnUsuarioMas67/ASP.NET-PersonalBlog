@@ -60,4 +60,28 @@ public class AdminController : Controller
         
         return View(article);
     }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        if (!_accountsService.IsLoggedIn)
+            return RedirectToAction(nameof(Login));
+        
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,Title,Content,PublishDate")] Article article)
+    {
+        if (!_accountsService.IsLoggedIn)
+            return RedirectToAction(nameof(Login));
+
+        if (!ModelState.IsValid) return View(article);
+        
+        article.PublishDate = DateTime.Now;
+        await _articlesService.CreateAsync(article);
+
+        return RedirectToAction(nameof(Index));
+    }
 }

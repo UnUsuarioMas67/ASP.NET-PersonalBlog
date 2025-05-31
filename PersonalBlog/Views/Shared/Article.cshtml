@@ -6,7 +6,7 @@
 
 <div class="container">
     <a asp-action="Index">Go Back</a>
-    <h1 class="fw-light text-center mb-4">@Model.Title</h1>
+    <h1 class="fw-light mt-3 mb-4">@Model.Title</h1>
     <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
     @{
         var paragraphs = Regex.Split(Model.Content, "[\r\n]+");
