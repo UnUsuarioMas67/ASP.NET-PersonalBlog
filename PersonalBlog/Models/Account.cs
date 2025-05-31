@@ -10,9 +10,9 @@ public class Account
     public string Email { get; set; } = String.Empty;*/
     
     [Required]
-    public string Username { get; set; } = String.Empty;
+    public string Username { get; set; } = string.Empty;
     
     [Required]
     [DataType(DataType.Password)]
-    public string Password { get; set; } = String.Empty;
+    public string Password { get; set; } = string.Empty;
 }
