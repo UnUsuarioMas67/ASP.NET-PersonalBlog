@@ -13,8 +13,9 @@ public class AccountsService : IAccountsService
     public Account? LoggedInAccount { get; private set; }
     public bool IsLoggedIn => LoggedInAccount != null;
 
-    public void Login(string username, string password)
+    public bool Login(string username, string password)
     {
         LoggedInAccount = _accounts.SingleOrDefault(x => x.Username == username && x.Password == password);
+        return IsLoggedIn;
     }
 }

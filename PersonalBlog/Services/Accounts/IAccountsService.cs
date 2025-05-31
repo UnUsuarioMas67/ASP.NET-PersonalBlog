@@ -4,7 +4,7 @@ namespace PersonalBlog.Services.Accounts;
 
 public interface IAccountsService
 {
-    public Account? LoggedInAccount { get; }
-    public bool IsLoggedIn { get; }
-    void Login(string username, string password);
+    Account? LoggedInAccount { get; }
+    bool IsLoggedIn { get; }
+    bool Login(string username, string password);
 }
