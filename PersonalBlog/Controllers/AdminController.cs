@@ -74,8 +74,7 @@ public class AdminController : Controller
 
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
-            return NotFound();
+        if (id == null) return NotFound();
         
         var article = await _articlesService.GetByIdAsync(id.Value);
         if (article == null)
@@ -94,6 +93,26 @@ public class AdminController : Controller
         var result = await _articlesService.UpdateAsync(article);
         if (!result) return NotFound();
         
+        return RedirectToAction(nameof(Index));
+    }
+    
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null) return NotFound();
+        
+        var article = await _articlesService.GetByIdAsync(id.Value);
+        if (article == null) return NotFound();
+        
+        return View(article);
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var result = await _articlesService.DeleteAsync(id);
+        if (!result) return NotFound();
         return RedirectToAction(nameof(Index));
     }
 }
