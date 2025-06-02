@@ -20,7 +20,7 @@ public class ArticlesService : IArticlesService
 
     public async Task<Article?> GetByIdAsync(int id)
     {
-        return await _context.Articles.FirstOrDefaultAsync(a => a.Id == id);
+        return await _context.Articles.FindAsync(id);
     }
 
     public async Task CreateAsync(Article article)
@@ -29,19 +29,23 @@ public class ArticlesService : IArticlesService
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Article article)
+    public async Task<bool> UpdateAsync(Article article)
     {
+        if (!_context.Articles.Any(e => e.Id == article.Id)) return false;
+
         _context.Articles.Update(article);
         await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var article = await GetByIdAsync(id);
-        if (article != null)
-        {
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
-        }
+        
+        if (article == null) return false;
+
+        _context.Articles.Remove(article);
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

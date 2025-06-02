@@ -71,4 +71,29 @@ public class AdminController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+            return NotFound();
+        
+        var article = await _articlesService.GetByIdAsync(id.Value);
+        if (article == null)
+            return NotFound();
+        
+        return View(article);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PublishDate")] Article article)
+    {
+        if (id != article.Id) return NotFound();
+        if (!ModelState.IsValid) return View(article);
+        
+        var result = await _articlesService.UpdateAsync(article);
+        if (!result) return NotFound();
+        
+        return RedirectToAction(nameof(Index));
+    }
 }
