@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PersonalBlogContext>(options 
     => options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogDb")));
-builder.Services.AddScoped<IArticlesService, ArticlesService>();
+builder.Services.AddScoped<IArticlesService, MarkdownArticlesService>();
 builder.Services.AddSingleton<IAccountsService, AccountsService>();
 builder.Services.AddScoped<EnsureLoggedIn>();
 
