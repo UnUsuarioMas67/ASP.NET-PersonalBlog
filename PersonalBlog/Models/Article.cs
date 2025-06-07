@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Markdig;
 using Markdig.Extensions.Yaml;
@@ -11,6 +12,7 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace PersonalBlog.Models;
 
+[SuppressMessage("ReSharper", "PropertyCanBeMadeInitOnly.Global")]
 public class Article
 {
     [YamlIgnore]
