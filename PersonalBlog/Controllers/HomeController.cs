@@ -22,12 +22,12 @@ public class HomeController : Controller
         return View(await _articlesService.GetAllAsync());
     }
 
-    public async Task<IActionResult> Article(int? id)
+    public async Task<IActionResult> Article(string? id)
     {
         if (id == null)
             return NotFound();
         
-        var article = await _articlesService.GetByIdAsync(id.Value);
+        var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
             return NotFound();
         return View(article);

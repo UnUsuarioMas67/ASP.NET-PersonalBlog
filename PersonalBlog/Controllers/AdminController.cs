@@ -43,12 +43,12 @@ public class AdminController : Controller
         return View(await _articlesService.GetAllAsync());
     }
 
-    public async Task<IActionResult> Article(int? id)
+    public async Task<IActionResult> Article(string? id)
     {
         if (id == null)
             return NotFound();
 
-        var article = await _articlesService.GetByIdAsync(id.Value);
+        var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
             return NotFound();
 
@@ -72,11 +72,11 @@ public class AdminController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> Edit(string? id)
     {
         if (id == null) return NotFound();
         
-        var article = await _articlesService.GetByIdAsync(id.Value);
+        var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
             return NotFound();
         
@@ -85,7 +85,7 @@ public class AdminController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PublishDate")] Article article)
+    public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Content,PublishDate")] Article article)
     {
         if (id != article.Id) return NotFound();
         if (!ModelState.IsValid) return View(article);
@@ -96,11 +96,11 @@ public class AdminController : Controller
         return RedirectToAction(nameof(Index));
     }
     
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> Delete(string? id)
     {
         if (id == null) return NotFound();
         
-        var article = await _articlesService.GetByIdAsync(id.Value);
+        var article = await _articlesService.GetByIdAsync(id);
         if (article == null) return NotFound();
         
         return View(article);
@@ -109,7 +109,7 @@ public class AdminController : Controller
     [HttpPost]
     [ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(string id)
     {
         var result = await _articlesService.DeleteAsync(id);
         if (!result) return NotFound();

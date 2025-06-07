@@ -15,8 +15,10 @@ namespace PersonalBlog.Models;
 [SuppressMessage("ReSharper", "PropertyCanBeMadeInitOnly.Global")]
 public class Article
 {
+    [Required]
+    [StringLength(150)]
     [YamlIgnore]
-    public int Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     [Required] 
     [StringLength(150)] 

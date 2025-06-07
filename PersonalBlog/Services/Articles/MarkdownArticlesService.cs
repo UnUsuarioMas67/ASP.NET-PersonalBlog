@@ -12,22 +12,22 @@ public class MarkdownArticlesService : IArticlesService
         if (!Directory.Exists(_articlesFolder))
             return new List<Article>();
         
-        var files = Directory.EnumerateFiles(_articlesFolder, "*.md").Order();
+        var files = Directory.EnumerateFiles(_articlesFolder, "*.md").ToList();
         var tasks = files.Select(file => File.ReadAllTextAsync(file)).ToList();
         var markdownList = await Task.WhenAll(tasks);
         
         var articles = new List<Article>();
-        for (int i = 1; i <= markdownList.Length; i++)
+        for (int i = 0; i < markdownList.Length; i++)
         {
-            var article = Article.FromMarkdown(markdownList[i - 1]);
-            article.Id = i;
+            var article = Article.FromMarkdown(markdownList[i]);
+            article.Id = Path.GetFileNameWithoutExtension(files[i]);
             articles.Add(article);
         }
         
         return articles;
     }
 
-    public async Task<Article?> GetByIdAsync(int id)
+    public async Task<Article?> GetByIdAsync(string id)
     {
         try
         {
@@ -45,16 +45,8 @@ public class MarkdownArticlesService : IArticlesService
 
     public async Task CreateAsync(Article article)
     {
-        if (!Directory.Exists(_articlesFolder))
-            article.Id = 1;
-        else
-        {
-            var files = Directory.EnumerateFiles(_articlesFolder, "*.md");
-            int.TryParse(
-                Path.GetFileNameWithoutExtension(files.OrderByDescending(f => f).FirstOrDefault()) ?? "0", 
-                out var lastId);
-            article.Id = lastId + 1;
-        }
+        if (IdExists(article.Id))
+            throw new InvalidOperationException($"Id {article.Id} already exists");
         
         var markdown = article.ToMarkdown();
         Directory.CreateDirectory(_articlesFolder);
@@ -73,7 +65,7 @@ public class MarkdownArticlesService : IArticlesService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var file = Path.Combine(_articlesFolder, id + ".md");
         if (!File.Exists(file))
@@ -81,5 +73,12 @@ public class MarkdownArticlesService : IArticlesService
         
         File.Delete(file);
         return await Task.FromResult(true);
+    }
+
+    private bool IdExists(string id)
+    {
+        return Directory.EnumerateFiles(_articlesFolder, "*.md")
+            .Select(Path.GetFileNameWithoutExtension)
+            .Contains(id);
     }
 }
