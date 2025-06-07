@@ -19,34 +19,6 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">
                             Published on @Html.DisplayFor(m => article.PublishDate)
                         </h6>
-                        <p class="card-text">
-                            @{
-                                int charLimit = 150;
-                                string summary = "";
-                                int i = 0;
-                                while (true)
-                                {
-                                    if (article.Content.Length <= charLimit)
-                                    {
-                                        summary = article.Content;
-                                        break;
-                                    }
-                                    
-                                    char curr = article.Content[i];
-                                    bool isAtLimit = i > charLimit && Regex.IsMatch(curr.ToString(), @"[\W]");
-                                    bool isNewLine = Regex.IsMatch(curr.ToString(), @"[\r\n]");
-                                    if (isAtLimit || isNewLine)
-                                    {
-                                        summary += "...";
-                                        break;
-                                    }
-
-                                    summary += curr;
-                                    i++;
-                                }
-                            }
-                            @summary
-                        </p>
                     </div>
                 </div>
             </div>

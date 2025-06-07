@@ -1,20 +1,18 @@
-﻿@using System.Text.RegularExpressions
-@model PersonalBlog.Models.Article
+﻿@model PersonalBlog.Models.Article
 @{
     ViewData["Title"] = Model.Title;
 }
 
 <div class="container">
-    <a class="link-secondary" asp-action="Index">Go Back</a>
+    <a class="link-secondary mb-4 d-inline-block" asp-action="Index">Go Back</a>
     <div class="mb-4">
-        <h1 class="fw-light mt-3 mb-3">@Model.Title</h1>
         <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
+        @if (Model.LastModified != null)
+        {
+            <h6 class="text-secondary">Last updated @Html.DisplayFor(m => m.LastModified)</h6>
+        }
     </div>
-    @{
-        var paragraphs = Regex.Split(Model.Content, "[\r\n]+");
-    }
-    @foreach (var paragraph in paragraphs)
-    {
-        <p class="fs-5">@paragraph</p>
-    }
+    <p>
+        @Html.Raw(Markdig.Markdown.ToHtml(Model.Content))
+    </p>
 </div>
