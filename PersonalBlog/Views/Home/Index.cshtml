@@ -12,13 +12,19 @@
         @foreach (var article in Model)
         {
             <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
+                <div class="card">
                     <div class="card-body">
                         <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
                            asp-action="Article">@article.Title</a>
                         <h6 class="card-subtitle mb-2 text-body-secondary">
                             Published on @Html.DisplayFor(m => article.PublishDate)
                         </h6>
+                        @if (article.Summary != null)
+                        {
+                            <p class="card-text">
+                                @article.Summary
+                            </p>
+                        }
                     </div>
                 </div>
             </div>

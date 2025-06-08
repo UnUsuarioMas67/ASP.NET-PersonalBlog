@@ -5,14 +5,14 @@
 
 <div class="container">
     <a class="link-secondary mb-4 d-inline-block" asp-action="Index">Go Back</a>
-    <div class="mb-4">
-        <h6 class="text-secondary">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
+    <div class="mb-2 text-secondary">
+        <h6 class="small">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
         @if (Model.LastModified != null)
         {
-            <h6 class="text-secondary">Last updated @Html.DisplayFor(m => m.LastModified)</h6>
+            <h6 class="small">Last updated @Html.DisplayFor(m => m.LastModified)</h6>
         }
     </div>
-    <p>
+    <div>
         @Html.Raw(Markdig.Markdown.ToHtml(Model.Content))
-    </p>
+    </div>
 </div>
