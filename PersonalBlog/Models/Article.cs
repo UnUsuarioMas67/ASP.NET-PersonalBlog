@@ -28,6 +28,9 @@ public class Article
     [StringLength(int.MaxValue)]
     [YamlIgnore]
     public string Content { get; set; } = string.Empty;
+    
+    [StringLength(250)] 
+    public string? Summary { get; set; }
 
     [DisplayName("Publish Date")]
     [DataType(DataType.Date)]
