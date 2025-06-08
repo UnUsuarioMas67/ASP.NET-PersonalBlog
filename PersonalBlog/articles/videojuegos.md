@@ -1,7 +1,8 @@
 ---
 title: 'La Evolución de los Videojuegos: De los 8 Bits al Futuro Virtual'
+summary: Los videojuegos han recorrido un largo camino desde sus humildes comienzos.
 publish_date: 2025-06-05
-last_modified: 2025-06-07
+last_modified: 2025-06-08
 ---
 # La Evolución de los Videojuegos: De los 8 Bits al Futuro Virtual
 
