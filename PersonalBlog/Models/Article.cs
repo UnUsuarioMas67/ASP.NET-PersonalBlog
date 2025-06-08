@@ -29,7 +29,7 @@ public class Article
     [YamlIgnore]
     public string Content { get; set; } = string.Empty;
     
-    [StringLength(250)] 
+    [StringLength(200)] 
     public string? Summary { get; set; }
 
     [DisplayName("Publish Date")]
