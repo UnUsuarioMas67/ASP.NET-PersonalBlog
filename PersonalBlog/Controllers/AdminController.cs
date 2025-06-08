@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Filters;
 using PersonalBlog.Models;
 using PersonalBlog.Services.Accounts;
