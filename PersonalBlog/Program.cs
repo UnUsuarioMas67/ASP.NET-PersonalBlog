@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using PersonalBlog.Controllers;
-using PersonalBlog.Data;
 using PersonalBlog.Filters;
-using PersonalBlog.Services;
 using PersonalBlog.Services.Accounts;
 using PersonalBlog.Services.Articles;
 
@@ -10,8 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<PersonalBlogContext>(options 
-    => options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogDb")));
 builder.Services.AddScoped<IArticlesService, MarkdownArticlesService>();
 builder.Services.AddSingleton<IAccountsService, AccountsService>();
 builder.Services.AddScoped<EnsureLoggedIn>();
