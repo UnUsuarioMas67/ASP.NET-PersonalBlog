@@ -46,7 +46,7 @@ public class MarkdownArticlesService : IArticlesService
     public async Task CreateAsync(Article article)
     {
         if (IdExists(article.Id))
-            throw new InvalidOperationException($"Id {article.Id} already exists");
+            throw new InvalidOperationException($"Id '{article.Id}' already exists");
         
         var markdown = article.ToMarkdown();
         Directory.CreateDirectory(_articlesFolder);
