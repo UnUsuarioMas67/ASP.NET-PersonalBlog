@@ -57,17 +57,25 @@ public class AdminController : Controller
 
     public IActionResult Create()
     {
-        return View();
+        return View(new CreateViewModel());
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Content")] Article article)
+    public async Task<IActionResult> Create([Bind("Article")] CreateViewModel viewModel)
     {
-        if (!ModelState.IsValid) return View(article);
+        if (!ModelState.IsValid) return View(viewModel);
 
-        article.PublishDate = DateTime.Now;
-        await _articlesService.CreateAsync(article);
+        try
+        {
+            viewModel.Article.PublishDate = DateTime.Now;
+            await _articlesService.CreateAsync(viewModel.Article);
+        }
+        catch (InvalidOperationException e)
+        {
+            viewModel.IdInUse = true;
+            return View(viewModel);
+        }
 
         return RedirectToAction(nameof(Index));
     }

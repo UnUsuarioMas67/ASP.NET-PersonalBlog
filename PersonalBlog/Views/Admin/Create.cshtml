@@ -1,4 +1,4 @@
-﻿@model PersonalBlog.Models.Article
+﻿@model PersonalBlog.Models.CreateViewModel
 
 <div class="container">
     <a class="link-secondary" asp-action="Index">Go Back</a>
@@ -6,18 +6,25 @@
 
     <form method="post" asp-action="Create">
         <div class="mb-3">
-            <label class="form-label" asp-for="Id"></label>
-            <input class="form-control" asp-for="Id">
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label" asp-for="Title"></label>
-            <input class="form-control" asp-for="Title">
+            <label class="form-label" asp-for="Article.Id"></label>
+            <input class="form-control" asp-for="Article.Id">
+            <span class="small text-danger" asp-validation-for="Article.Id"></span>
+            @if (Model.IdInUse)
+            {
+                <span class="small text-danger">Id is already in use</span>
+            }
         </div>
 
         <div class="mb-3">
-            <label class="form-label" asp-for="Content">Content (Markdown)</label>
-            <textarea rows="20" class="form-control" style="resize: none" asp-for="Content"></textarea>
+            <label class="form-label" asp-for="Article.Title"></label>
+            <input class="form-control" asp-for="Article.Title">
+            <span class="small text-danger" asp-validation-for="Article.Title"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Article.Content">Content (Markdown)</label>
+            <textarea rows="20" class="form-control" style="resize: none" asp-for="Article.Content"></textarea>
+            <span class="small text-danger" asp-validation-for="Article.Content"></span>
         </div>
 
         <div class="mb-3">
