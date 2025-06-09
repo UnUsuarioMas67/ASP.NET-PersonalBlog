@@ -32,7 +32,9 @@ public class MarkdownArticlesService : IArticlesService
         try
         {
             var markdown = await File.ReadAllTextAsync($"{_articlesFolder}/{id}.md");
-            return Article.FromMarkdown(markdown);
+            var article = Article.FromMarkdown(markdown);
+            article.Id = id;
+            return article;
         }
         catch (Exception e)
         {
