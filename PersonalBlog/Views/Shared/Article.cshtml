@@ -1,18 +1,33 @@
-﻿@model PersonalBlog.Models.Article
+﻿@using Markdig
+@model PersonalBlog.Models.Article
 @{
     ViewData["Title"] = Model.Title;
 }
 
 <div class="container">
-    <a class="link-secondary mb-4 d-inline-block" asp-action="Index">Go Back</a>
-    <div class="mb-2 text-secondary">
-        <h6 class="small">Published on @Html.DisplayFor(m => m.PublishDate)</h6>
-        @if (Model.LastModified != null)
-        {
-            <h6 class="small">Last updated @Html.DisplayFor(m => m.LastModified)</h6>
-        }
-    </div>
-    <div>
-        @Html.Raw(Markdig.Markdown.ToHtml(Model.Content))
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
+            <a class="link-secondary mb-4 d-inline-block" asp-action="Index">Go Back</a>
+            <div class="border border-secondary-subtle p-4 rounded">
+                <h1 class="fw-bold">@Html.DisplayFor(m => m.Title)</h1>
+                <div class="mb-3 text-secondary d-flex align-items-center gap-2">
+                    <h6 class="small m-0">Published: @Html.DisplayFor(m => m.PublishDate)</h6>
+                    @if (Model.LastModified != null)
+                    {
+                        <span>-</span>
+                        <h6 class="small m-0">Last updated: @Html.DisplayFor(m => m.LastModified)</h6>
+                    }
+                </div>
+
+                <hr>
+                
+                <div class="bg-body-tertiary p-3 rounded mb-2">
+                    <p class="lead mb-0">@Model.Summary</p>
+                </div>
+                <div>
+                    @Html.Raw(Markdown.ToHtml(Model.Content))
+                </div>
+            </div>
+        </div>
     </div>
 </div>
