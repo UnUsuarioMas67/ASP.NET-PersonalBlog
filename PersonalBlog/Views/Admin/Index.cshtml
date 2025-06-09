@@ -1,38 +1,44 @@
 ﻿@model List<PersonalBlog.Models.Article>
 
 <div class="container">
-    <div class="mb-5">
-        <h1 class="">Welcome @ViewBag.Username!</h1>
-        <a class="link-primary d-block fs-4" asp-action="Create">+ Add</a>
-    </div>
-
-    <div class="row g-3">
-        @foreach (var article in Model)
-        {
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
-                           asp-action="Article">@article.Title</a>
-
-                        <h6 class="card-subtitle mb-2 text-body-secondary">
-                            Published on @Html.DisplayFor(m => article.PublishDate)
-                        </h6>
-                        
-                        @if (article.Summary != null)
-                        {
-                            <p class="card-text">
-                                @article.Summary
-                            </p>
-                        }
-
-                        <div class="d-flex gap-2">
-                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@article.Id">Edit</a>
-                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@article.Id">Delete</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10">
+            <div class="mb-5">
+                <h1 class="">Welcome @ViewBag.Username!</h1>
+                <a class="link-primary d-block fs-4" asp-action="Create">+ Add</a>
             </div>
-        }
+
+            <div class="row g-3">
+                @foreach (var article in Model)
+                {
+                    <article class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
+                                   asp-action="Article">@article.Title</a>
+
+                                <h6 class="card-subtitle mb-2 text-body-secondary">
+                                    Published on @Html.DisplayFor(m => article.PublishDate)
+                                </h6>
+
+                                @if (article.Summary != null)
+                                {
+                                    <p class="card-text">
+                                        @article.Summary
+                                    </p>
+                                }
+
+                                <div class="d-flex gap-2">
+                                    <a class="btn btn-sm btn-primary" asp-action="Edit"
+                                       asp-route-id="@article.Id">Edit</a>
+                                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@article.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
     </div>
+    
 </div>
