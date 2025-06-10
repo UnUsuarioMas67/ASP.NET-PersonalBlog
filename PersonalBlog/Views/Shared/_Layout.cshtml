@@ -9,12 +9,19 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/PersonalBlog.styles.css" asp-append-version="true"/>
 </head>
+
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid justify-content-center">
-            <a class="navbar-brand m-0" asp-area="" asp-controller="Home" asp-action="Index">PersonalBlog</a>
-            @*<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+@if (IsSectionDefined("Header"))
+{
+    @await RenderSectionAsync("Header")
+}
+else
+{
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid justify-content-center">
+                <a class="navbar-brand m-0" asp-area="" asp-action="Index">PersonalBlog</a>
+                @*<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,9 +35,11 @@
                     </li>
                 </ul>
             </div>*@
-        </div>
-    </nav>
-</header>
+            </div>
+        </nav>
+    </header>
+}
+
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()
