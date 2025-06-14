@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using PersonalBlog.Filters;
-using PersonalBlog.Services.Accounts;
 using PersonalBlog.Services.Articles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +13,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options => options.LoginPath = "/Login");
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IArticlesService, MarkdownArticlesService>();
-builder.Services.AddSingleton<IAccountsService, AccountsService>();
-builder.Services.AddScoped<EnsureLoggedIn>();
 
 var app = builder.Build();
 
