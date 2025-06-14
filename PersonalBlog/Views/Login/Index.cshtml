@@ -17,24 +17,21 @@
             <h2 class="text-center text-md-start mb-4">Admin Login</h2>
             <form method="post">
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Username"></label>
-                    <input class="form-control" asp-for="Username">
-                    <span class="text-danger small" asp-validation-for="Username"></span>
+                    <label class="form-label" asp-for="User.Username"></label>
+                    <input class="form-control" asp-for="User.Username">
+                    <span class="text-danger small" asp-validation-for="User.Username"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Password"></label>
-                    <input class="form-control" asp-for="Password">
-                    <span class="text-danger small" asp-validation-for="Password"></span>
+                    <label class="form-label" asp-for="User.Password"></label>
+                    <input class="form-control" asp-for="User.Password">
+                    <span class="text-danger small" asp-validation-for="User.Password"></span>
                 </div>
-
-                @if (Model.Failed)
-                {
-                    <p class="text-danger">Incorrect username or password</p>
-                }
-
-                <button class="btn btn-primary mt-3 w-100" type="submit">Log In</button>
+                
+                <button class="btn btn-primary my-3 w-100" type="submit">Log In</button>
             </form>
+            
+            <span class="text-danger">@Model.Message</span>
         </div>
     </div>
 </div>
