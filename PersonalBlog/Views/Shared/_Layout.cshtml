@@ -28,10 +28,11 @@ else
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        @* Checks if current controller is Admin, if so displays user dropdown *@
                         @if ("Admin" == (string)Context.GetRouteData().Values["controller"]!)
                         {
                             var username = Context.User.Identity?.Name;
-                            
+
                             <div class="dropdown">
                                 <button class="nav-link text-dark dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown"
@@ -47,10 +48,11 @@ else
                                 </ul>
                             </div>
                         }
-                        else
+                        else 
+                        // Otherwise displays Sign In link
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">
                                     Sign In
                                 </a>
                             </li>
