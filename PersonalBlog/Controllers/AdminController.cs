@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Filters;
 using PersonalBlog.Models;
 using PersonalBlog.Services.Accounts;
@@ -6,7 +7,7 @@ using PersonalBlog.Services.Articles;
 
 namespace PersonalBlog.Controllers;
 
-[ServiceFilter(typeof(EnsureLoggedIn))]
+[Authorize]
 public class AdminController : Controller
 {
     private readonly IArticlesService _articlesService;
