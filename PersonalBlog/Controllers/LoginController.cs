@@ -27,27 +27,35 @@ public class LoginController : Controller
         if (!ModelState.IsValid)
             return View(model);
 
-        var passwordHasher = new PasswordHasher<string>();
-        var hashedPassword = passwordHasher.HashPassword(null, "admin");
-        // hardcoded account for testing purposes
-        var user = new User{ Username = "admin", Password = hashedPassword };
-
-        if (model.User.Username == user.Username)
+        if (IsUserValid(model.User))
         {
-            var result = passwordHasher.VerifyHashedPassword(null, user.Password, model.User.Password);
-            if (result is PasswordVerificationResult.Success or PasswordVerificationResult.SuccessRehashNeeded)
+            var claims = new List<Claim>
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.User.Username)
-                };
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                return RedirectToAction("Index", "Admin");
-            }
+                new Claim(ClaimTypes.Name, model.User.Username)
+            };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+            return RedirectToAction("Index", "Admin");
         }
-        
+
         model.Message = "Invalid username or password";
         return View(model);
+    }
+
+    private bool IsUserValid(User user)
+    {
+        // Password for all users is: password
+        
+        var users = _configuration.GetSection("SiteUsers").Get<List<User>>();
+        var passwordHasher = new PasswordHasher<string>();
+        return users!.Any(u =>
+        {
+            var usernameMatches = user.Username == u.Username;
+            var passwordMatches =
+                passwordHasher.VerifyHashedPassword("", u.Password, user.Password)
+                    is PasswordVerificationResult.Success or PasswordVerificationResult.SuccessRehashNeeded;
+            return usernameMatches && passwordMatches;
+        });
     }
 }
