@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PersonalBlog.Filters;
 using PersonalBlog.Services.Accounts;
 using PersonalBlog.Services.Articles;
@@ -5,6 +6,13 @@ using PersonalBlog.Services.Articles;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => options.LoginPath = "/Login");
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IArticlesService, MarkdownArticlesService>();
 builder.Services.AddSingleton<IAccountsService, AccountsService>();
