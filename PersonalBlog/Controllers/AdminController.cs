@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PersonalBlog.Filters;
 using PersonalBlog.Models;
-using PersonalBlog.Services.Accounts;
 using PersonalBlog.Services.Articles;
 
 namespace PersonalBlog.Controllers;
@@ -102,5 +101,11 @@ public class AdminController : Controller
         var result = await _articlesService.DeleteAsync(id);
         if (!result) return NotFound();
         return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return RedirectToAction("Index", "Login");
     }
 }
