@@ -10,34 +10,14 @@ namespace PersonalBlog.Controllers;
 public class AdminController : Controller
 {
     private readonly IArticlesService _articlesService;
-    private readonly IAccountsService _accountsService;
 
-    public AdminController(IArticlesService articlesService, IAccountsService accountsService)
+    public AdminController(IArticlesService articlesService)
     {
         _articlesService = articlesService;
-        _accountsService = accountsService;
-    }
-
-    public IActionResult Login()
-    {
-        return View(new LoginViewModel());
-    }
-
-    [HttpPost]
-    public IActionResult Login(LoginViewModel login)
-    {
-        if (!ModelState.IsValid)
-            return View(login);
-
-        login.Failed = !_accountsService.Login(login.Username, login.Password);
-        if (login.Failed) return View(login);
-
-        return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> Index()
     {
-        ViewBag.Username = _accountsService.LoggedInAccount!.Username;
         return View(await _articlesService.GetAllAsync());
     }
 
