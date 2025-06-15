@@ -29,12 +29,17 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Article.Summary">
-                            @Html.DisplayNameFor(m => m.Article.Summary) (Optional)
-                        </label>
-                        <textarea rows="3" class="form-control" style="resize: none"
-                                  asp-for="Article.Summary"></textarea>
+                        <label class="form-label" asp-for="Article.Summary"></label>
+                        <span class="small text-body-tertiary">(Optional)</span>
+                        <textarea rows="3" class="form-control" style="resize: none" asp-for="Article.Summary"></textarea>
                         <span class="small text-danger" asp-validation-for="Article.Summary"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Article.TagsString"></label>
+                        <span class="small text-body-tertiary">(Comma Separated) (Optional)</span>
+                        <input class="form-control" asp-for="Article.TagsString">
+                        <span class="small text-danger" asp-validation-for="Article.TagsString"></span>
                     </div>
 
                     <div class="mb-3">

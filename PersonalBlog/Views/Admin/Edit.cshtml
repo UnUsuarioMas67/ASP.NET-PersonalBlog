@@ -22,11 +22,17 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Summary">
-                            @Html.DisplayNameFor(m => m.Summary) (Optional)
-                        </label>
+                        <label class="form-label" asp-for="Summary"></label>
+                        <span class="small text-body-tertiary">(Optional)</span>
                         <textarea rows="3" class="form-control" style="resize: none" asp-for="Summary"></textarea>
                         <span class="small text-danger" asp-validation-for="Summary"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="TagsString"></label>
+                        <span class="small text-body-tertiary">(Comma Separated) (Optional)</span>
+                        <input class="form-control" asp-for="TagsString">
+                        <span class="small text-danger" asp-validation-for="TagsString"></span>
                     </div>
 
                     <div class="mb-3">

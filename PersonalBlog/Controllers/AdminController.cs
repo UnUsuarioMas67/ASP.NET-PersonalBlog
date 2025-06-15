@@ -72,7 +72,7 @@ public class AdminController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(string id, 
-        [Bind("Id,Title,Content,Summary,PublishDate,LastModified")] Article article)
+        [Bind("Id,Title,Content,Summary,Tags,TagsString,PublishDate,LastModified")] Article article)
     {
         if (id != article.Id) return NotFound();
         if (!ModelState.IsValid) return View(article);

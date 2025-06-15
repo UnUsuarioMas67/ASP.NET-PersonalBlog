@@ -1,4 +1,5 @@
 ﻿@using Markdig
+@using Microsoft.IdentityModel.Tokens
 @model PersonalBlog.Models.Article
 @{
     ViewData["Title"] = Model.Title;
@@ -31,6 +32,15 @@
                 <div>
                     @Html.Raw(Markdown.ToHtml(Model.Content))
                 </div>
+
+                @if (!Model.Tags.IsNullOrEmpty())
+                {
+                    <p class="mb-2 small text-body-tertiary">Tags:</p>
+                    foreach (var tag in Model.Tags!)
+                    {
+                        <span class="small text-primary-emphasis bg-primary-subtle rounded p-1">@tag</span>
+                    }
+                }
             </div>
         </div>
     </div>
