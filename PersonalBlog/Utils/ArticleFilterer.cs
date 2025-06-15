@@ -8,7 +8,11 @@ public static class ArticleFilterer
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return articles.ToList();
-        
-        return articles.Where(a => a.Title.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        return articles.Where(a =>
+        {
+            return a.Title.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)
+                   || a.Tags.Any(tag => searchString.Contains(tag, StringComparison.CurrentCultureIgnoreCase));
+        }).ToList();
     }
 }
