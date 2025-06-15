@@ -15,30 +15,37 @@ namespace PersonalBlog.Models;
 [SuppressMessage("ReSharper", "PropertyCanBeMadeInitOnly.Global")]
 public class Article
 {
-    [Required]
-    [StringLength(150)]
-    [YamlIgnore]
+    [Required, StringLength(150), YamlIgnore]
     public string Id { get; set; } = string.Empty;
 
-    [Required] 
-    [StringLength(150)] 
+    [Required, StringLength(150)] 
     public string Title { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(int.MaxValue)]
-    [YamlIgnore]
+    [Required, StringLength(int.MaxValue), YamlIgnore]
     public string Content { get; set; } = string.Empty;
     
     [StringLength(200)] 
     public string? Summary { get; set; }
 
-    [DisplayName("Publish Date")]
-    [DataType(DataType.Date)]
+    [DataType(DataType.Date), DisplayName("Publish Date")]
     public DateTime PublishDate { get; set; }
 
-    [DisplayName("Last Modified")]
-    [DataType(DataType.Date)]
+    [DataType(DataType.Date), DisplayName("Last Modified")]
     public DateTime? LastModified { get; set; }
+
+    [YamlIgnore, DisplayName("Tags")] 
+    public string TagsString { get; set; } = string.Empty;
+
+    public List<string> Tags
+    {
+        get => !string.IsNullOrWhiteSpace(TagsString)
+            ? TagsString.Split(',')
+                .Select(t => t.Trim())
+                .Where(t => !string.IsNullOrWhiteSpace(t))
+                .ToList()
+            : new List<string>();
+        set => TagsString = string.Join(",", value);
+    }
 
     public string ToMarkdown()
     {
@@ -47,9 +54,9 @@ public class Article
             .WithTypeConverter(new CustomDateTimerConverter())
             .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults)
             .Build();
-        
+
         var writer = new StringWriter();
-        
+
         writer.WriteLine("---");
         serializer.Serialize(writer, this);
         writer.WriteLine("---");
@@ -58,10 +65,10 @@ public class Article
         // This is to prevent additional lines from being added when converting to markdown
         var processedContent = Regex.Replace(Content, @"^[\n\r]+", string.Empty);
         writer.Write(processedContent);
-        
+
         return writer.ToString();
     }
-    
+
     public static Article FromMarkdown(string markdown)
     {
         var pipeline = new MarkdownPipelineBuilder()
@@ -70,19 +77,19 @@ public class Article
         var document = Markdown.Parse(markdown, pipeline);
         var yamlBlock = document.Descendants<YamlFrontMatterBlock>().FirstOrDefault();
         var yaml = yamlBlock?.Lines.ToString() ?? throw new YamlException("Frontmatter block not found");
-        
+
         var deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
             .WithTypeConverter(new CustomDateTimerConverter())
             .IgnoreUnmatchedProperties()
             .Build();
-        
+
         var article = deserializer.Deserialize<Article>(yaml);
         var contentOnly = markdown.Remove(yamlBlock.Span.Start, yamlBlock.Span.Length);
         // Removes newlines from the beginning of the Content
         // This is to prevent additional lines from being added when converting to markdown
         article.Content = Regex.Replace(contentOnly, @"^[\n\r]+", string.Empty);
-        
+
         return article;
     }
 
