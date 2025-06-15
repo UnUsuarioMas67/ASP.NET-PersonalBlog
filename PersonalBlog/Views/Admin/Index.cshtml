@@ -1,4 +1,4 @@
-﻿@model List<PersonalBlog.Models.Article>
+﻿@model PersonalBlog.Models.ArticleFilterViewModel
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
@@ -7,9 +7,24 @@
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10">
             <h1 class="mb-5 text-center">Admin Dashboard</h1>
+
+            <form class="mb-4" method="get" asp-action="Index">
+                <div class="input-group mb-3">
+                    <input class="form-control" placeholder="Search" asp-for="SearchString">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </form>
+            
             <a class="link-primary d-block mb-4 h5 text-center" asp-action="Create">+ Create New</a>
+            
+            <div class="mb-3">
+                @if (!string.IsNullOrWhiteSpace(Model.SearchString))
+                {
+                    <a class="link-underline-secondary link-secondary" asp-action="Index">Clear search</a>
+                }
+            </div>
             <div class="row g-3">
-                @foreach (var article in Model)
+                @foreach (var article in Model.Articles)
                 {
                     <article class="col-12 col-md-6 col-lg-4">
                         <div class="card">

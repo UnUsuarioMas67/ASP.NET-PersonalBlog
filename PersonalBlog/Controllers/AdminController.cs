@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Models;
 using PersonalBlog.Services.Articles;
+using PersonalBlog.Utils;
 
 namespace PersonalBlog.Controllers;
 
@@ -16,9 +17,17 @@ public class AdminController : Controller
         _articlesService = articlesService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? searchString)
     {
-        return View(await _articlesService.GetAllAsync());
+        var articles = await _articlesService.GetAllAsync();
+        
+        var viewModel = new ArticleFilterViewModel
+        {
+            SearchString = searchString,
+            Articles = articles.FilteredBy(searchString),
+        };
+        
+        return View(viewModel);
     }
 
     public async Task<IActionResult> Article(string? id)
