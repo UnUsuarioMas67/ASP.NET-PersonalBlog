@@ -53,6 +53,9 @@ public class Article
         writer.WriteLine("---");
         serializer.Serialize(writer, this);
         writer.WriteLine("---");
+        writer.WriteLine();
+        // Removes newlines from the beginning of the Content
+        // This is to prevent additional lines from being added when converting to markdown
         var processedContent = Regex.Replace(Content, @"^[\n\r]+", string.Empty);
         writer.Write(processedContent);
         
@@ -76,6 +79,8 @@ public class Article
         
         var article = deserializer.Deserialize<Article>(yaml);
         var contentOnly = markdown.Remove(yamlBlock.Span.Start, yamlBlock.Span.Length);
+        // Removes newlines from the beginning of the Content
+        // This is to prevent additional lines from being added when converting to markdown
         article.Content = Regex.Replace(contentOnly, @"^[\n\r]+", string.Empty);
         
         return article;
