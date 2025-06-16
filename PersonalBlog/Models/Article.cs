@@ -33,17 +33,15 @@ public class Article
     [DataType(DataType.Date), DisplayName("Last Modified")]
     public DateTime? LastModified { get; set; }
 
-    [YamlIgnore, DisplayName("Tags")] 
-    public string TagsString { get; set; } = string.Empty;
-
-    public List<string> Tags
+    public List<string>? Tags { get; set; }
+    
+    [YamlIgnore, DisplayName("Tags")]
+    public string TagsString
     {
-        get => !string.IsNullOrWhiteSpace(TagsString)
-            ? TagsString.Split(',')
-                .Select(t => t.Trim())
-                .Where(t => !string.IsNullOrWhiteSpace(t))
-                .ToList()
-            : new List<string>();
-        set => TagsString = string.Join(",", value);
-    }
+        get => Tags != null ? string.Join(",", Tags) : string.Empty;
+        set => Tags = value.Split(',')
+            .Where(t => !string.IsNullOrEmpty(t))
+            .Select(t => t.Trim())
+            .ToList();
+    } 
 }
