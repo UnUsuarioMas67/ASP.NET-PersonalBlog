@@ -9,10 +9,14 @@ public static class ArticleFilterer
         if (string.IsNullOrWhiteSpace(searchString))
             return articles.ToList();
 
-        return articles.Where(a =>
+        var filteredArticles = articles.Where(a =>
         {
-            return a.Title.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)
-                   || a.Tags.Any(tag => searchString.Contains(tag, StringComparison.CurrentCultureIgnoreCase));
+            var matchesTitle = a.Title.Contains(searchString, StringComparison.CurrentCultureIgnoreCase);
+            var matchesTags = 
+                a.Tags?.Any(tag => searchString.Contains(tag, StringComparison.CurrentCultureIgnoreCase)) ?? false;
+            return matchesTitle || matchesTags;
         }).ToList();
+        
+        return filteredArticles;
     }
 }
