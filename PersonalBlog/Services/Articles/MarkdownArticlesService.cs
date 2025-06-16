@@ -1,4 +1,5 @@
 ﻿using PersonalBlog.Models;
+using PersonalBlog.Utils;
 using YamlDotNet.Core;
 
 namespace PersonalBlog.Services.Articles;
@@ -19,7 +20,7 @@ public class MarkdownArticlesService : IArticlesService
         var articles = new List<Article>();
         for (int i = 0; i < markdownList.Length; i++)
         {
-            var article = Article.FromMarkdown(markdownList[i]);
+            var article = ArticleParser.FromMarkdown(markdownList[i]);
             article.Id = Path.GetFileNameWithoutExtension(files[i]);
             articles.Add(article);
         }
@@ -32,7 +33,7 @@ public class MarkdownArticlesService : IArticlesService
         try
         {
             var markdown = await File.ReadAllTextAsync($"{_articlesFolder}/{id}.md");
-            var article = Article.FromMarkdown(markdown);
+            var article = ArticleParser.FromMarkdown(markdown);
             article.Id = id;
             return article;
         }
@@ -50,7 +51,7 @@ public class MarkdownArticlesService : IArticlesService
         if (IdExists(article.Id))
             throw new InvalidOperationException($"Id '{article.Id}' already exists");
         
-        var markdown = article.ToMarkdown();
+        var markdown = ArticleParser.ToMarkdown(article);
         Directory.CreateDirectory(_articlesFolder);
         await File.WriteAllTextAsync($"{_articlesFolder}/{article.Id}.md", markdown);
     }
@@ -62,7 +63,7 @@ public class MarkdownArticlesService : IArticlesService
             return false;
         
         article.LastModified = DateTime.Now;
-        var markdown = article.ToMarkdown();
+        var markdown = ArticleParser.ToMarkdown(article);
         await File.WriteAllTextAsync(file, markdown);
         return true;
     }
