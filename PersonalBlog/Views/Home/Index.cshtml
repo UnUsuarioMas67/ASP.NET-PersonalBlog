@@ -9,13 +9,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10">
-            <h1 class="text-center display-4 mb-4">My Blog</h1>
-            <hr class="mb-4">
+            <div class="bg-primary bg-gradient rounded p-5 mb-4 w-100">
+                <h1 class="text-white text-center display-4">My Blog</h1>
+            </div>
 
             <form class="mb-4" method="get" asp-action="Index">
                 <div class="input-group mb-3">
                     <input class="form-control" placeholder="Search" asp-for="SearchString">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
                 </div>
             </form>
 
@@ -29,10 +30,10 @@
             <div class="row g-3">
                 @foreach (var article in Model.Articles)
                 {
-                    <article class="col-12 col-md-6 col-lg-4">
+                    <article class="col-12 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
+                                <a class="fs-5 lh-sm d-inline-block mb-3 card-title text-primary-emphasis" asp-route-id="@article.Id"
                                    asp-action="Article">@article.Title</a>
                                 <h6 class="card-subtitle small mb-2 text-body-secondary">
                                     Published on @Html.DisplayFor(m => article.PublishDate)

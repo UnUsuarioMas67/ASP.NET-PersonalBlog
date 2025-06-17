@@ -11,7 +11,7 @@
             <a class="btn btn-outline-secondary mb-4 d-inline-block" asp-action="Index">← Back</a>
 
             <div class="border p-4 rounded">
-                <h1 class="fw-bold">@Html.DisplayFor(m => m.Title)</h1>
+                <h1 class="text-primary-emphasis">@Html.DisplayFor(m => m.Title)</h1>
                 <div class="mb-3 text-secondary d-flex align-items-center gap-2">
                     <h6 class="small m-0">Published: @Html.DisplayFor(m => m.PublishDate)</h6>
                     @if (Model.LastModified != null)
@@ -38,7 +38,7 @@
                     <p class="mb-2 small text-body-tertiary">Tags:</p>
                     foreach (var tag in Model.Tags!)
                     {
-                        <span class="small text-body-secondary bg-secondary-subtle rounded p-1">@tag</span>
+                        <span class="small text-primary-emphasis bg-primary-subtle rounded p-1">@tag</span>
                     }
                 }
             </div>

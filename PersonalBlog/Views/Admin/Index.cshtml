@@ -6,12 +6,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10">
-            <h1 class="mb-5 text-center">Admin Dashboard</h1>
+            <h1 class="mt-4 mb-5 text-center">Admin Dashboard</h1>
 
             <form class="mb-4" method="get" asp-action="Index">
                 <div class="input-group mb-3">
                     <input class="form-control" placeholder="Search" asp-for="SearchString">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
                 </div>
             </form>
             
@@ -26,10 +26,10 @@
             <div class="row g-3">
                 @foreach (var article in Model.Articles)
                 {
-                    <article class="col-12 col-md-6 col-lg-4">
+                    <article class="col-12 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <a class="fs-5 lh-sm d-inline-block mb-3 card-title" asp-route-id="@article.Id"
+                                <a class="fs-5 lh-sm d-inline-block mb-3 card-title text-primary-emphasis" asp-route-id="@article.Id"
                                    asp-action="Article">@article.Title</a>
 
                                 <h6 class="card-subtitle mb-2 text-body-secondary">
