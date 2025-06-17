@@ -39,7 +39,7 @@ public class Article
     public string TagsString
     {
         get => Tags != null ? string.Join(",", Tags) : string.Empty;
-        set => Tags = value.Split(',')
+        set => Tags = value?.Split(',')
             .Where(t => !string.IsNullOrEmpty(t))
             .Select(t => t.Trim())
             .ToList();
