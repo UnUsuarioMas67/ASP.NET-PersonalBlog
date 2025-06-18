@@ -34,14 +34,4 @@ public class Article
     public DateTime? LastModified { get; set; }
 
     public List<string>? Tags { get; set; }
-    
-    [YamlIgnore, DisplayName("Tags")]
-    public string TagsString
-    {
-        get => Tags != null ? string.Join(",", Tags) : string.Empty;
-        set => Tags = value?.Split(',')
-            .Where(t => !string.IsNullOrEmpty(t))
-            .Select(t => t.Trim())
-            .ToList();
-    } 
 }

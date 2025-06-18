@@ -49,7 +49,7 @@ public class AdminController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Article")] ArticleFormViewModel viewModel)
+    public async Task<IActionResult> Create([Bind("Article,TagsString")] ArticleFormViewModel viewModel)
     {
         if (!ModelState.IsValid) return View(viewModel);
 
@@ -86,11 +86,10 @@ public class AdminController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(string id,
-        [Bind("Article")]
-        ArticleFormViewModel viewModel)
+        [Bind("Article,TagsString")] ArticleFormViewModel viewModel)
     {
         var article = viewModel.Article;
-        
+
         if (id != article.Id) return NotFound();
         if (!ModelState.IsValid) return View(viewModel);
 
