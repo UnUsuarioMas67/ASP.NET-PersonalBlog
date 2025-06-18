@@ -20,13 +20,13 @@ public class AdminController : Controller
     public async Task<IActionResult> Index(string? searchString)
     {
         var articles = await _articlesService.GetAllAsync();
-        
+
         var viewModel = new ArticleFilterViewModel
         {
             SearchString = searchString,
             Articles = articles.FilteredBy(searchString),
         };
-        
+
         return View(viewModel);
     }
 
@@ -44,12 +44,12 @@ public class AdminController : Controller
 
     public IActionResult Create()
     {
-        return View(new CreateViewModel());
+        return View(new ArticleFormViewModel());
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Article")] CreateViewModel viewModel)
+    public async Task<IActionResult> Create([Bind("Article")] ArticleFormViewModel viewModel)
     {
         if (!ModelState.IsValid) return View(viewModel);
 
@@ -60,7 +60,7 @@ public class AdminController : Controller
         }
         catch (InvalidOperationException e)
         {
-            viewModel.IdInUse = true;
+            viewModel.Message = "Id already in use";
             return View(viewModel);
         }
 
@@ -70,35 +70,43 @@ public class AdminController : Controller
     public async Task<IActionResult> Edit(string? id)
     {
         if (id == null) return NotFound();
-        
+
         var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
             return NotFound();
-        
-        return View(article);
+
+        var viewModel = new ArticleFormViewModel
+        {
+            Article = article,
+        };
+
+        return View(viewModel);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(string id, 
-        [Bind("Id,Title,Content,Summary,Tags,TagsString,PublishDate,LastModified")] Article article)
+    public async Task<IActionResult> Edit(string id,
+        [Bind("Article")]
+        ArticleFormViewModel viewModel)
     {
-        if (id != article.Id) return NotFound();
-        if (!ModelState.IsValid) return View(article);
+        var article = viewModel.Article;
         
+        if (id != article.Id) return NotFound();
+        if (!ModelState.IsValid) return View(viewModel);
+
         var result = await _articlesService.UpdateAsync(article);
         if (!result) return NotFound();
-        
+
         return RedirectToAction(nameof(Index));
     }
-    
+
     public async Task<IActionResult> Delete(string? id)
     {
         if (id == null) return NotFound();
-        
+
         var article = await _articlesService.GetByIdAsync(id);
         if (article == null) return NotFound();
-        
+
         return View(article);
     }
 

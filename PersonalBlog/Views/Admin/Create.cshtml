@@ -1,4 +1,4 @@
-﻿@model PersonalBlog.Models.CreateViewModel
+﻿@model PersonalBlog.Models.ArticleFormViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -9,17 +9,17 @@
             <a class="btn btn-outline-secondary mb-4 d-inline-block" asp-action="Index">← Back</a>
 
             <h1 class="mb-4">New Article</h1>
-            
+
             <div class="border p-4 rounded">
+                <div class="row">
+                    <span class="text-danger text-center">@Model.Message</span>
+                </div>
+
                 <form method="post" asp-action="Create">
                     <div class="mb-3">
                         <label class="form-label" asp-for="Article.Id"></label>
                         <input class="form-control" asp-for="Article.Id">
                         <span class="small text-danger" asp-validation-for="Article.Id"></span>
-                        @if (Model.IdInUse)
-                        {
-                            <span class="small text-danger">Id is already in use</span>
-                        }
                     </div>
 
                     <div class="mb-3">
@@ -31,7 +31,8 @@
                     <div class="mb-3">
                         <label class="form-label" asp-for="Article.Summary"></label>
                         <span class="small text-body-tertiary">(Optional)</span>
-                        <textarea rows="3" class="form-control" style="resize: none" asp-for="Article.Summary"></textarea>
+                        <textarea rows="3" class="form-control" style="resize: none"
+                                  asp-for="Article.Summary"></textarea>
                         <span class="small text-danger" asp-validation-for="Article.Summary"></span>
                     </div>
 

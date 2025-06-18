@@ -1,4 +1,4 @@
-﻿@model PersonalBlog.Models.Article
+﻿@model PersonalBlog.Models.ArticleFormViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -12,35 +12,35 @@
 
             <div class="border p-4 rounded">
                 <form method="post" asp-action="Edit">
-                    <input type="hidden" asp-for="Id">
-                    <input type="hidden" asp-for="PublishDate">
+                    <input type="hidden" asp-for="Article.Id">
+                    <input type="hidden" asp-for="Article.PublishDate">
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Title"></label>
-                        <input class="form-control" asp-for="Title">
-                        <span class="small text-danger" asp-validation-for="Title"></span>
+                        <label class="form-label" asp-for="Article.Title"></label>
+                        <input class="form-control" asp-for="Article.Title">
+                        <span class="small text-danger" asp-validation-for="Article.Title"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Summary"></label>
+                        <label class="form-label" asp-for="Article.Summary"></label>
                         <span class="small text-body-tertiary">(Optional)</span>
-                        <textarea rows="3" class="form-control" style="resize: none" asp-for="Summary"></textarea>
-                        <span class="small text-danger" asp-validation-for="Summary"></span>
+                        <textarea rows="3" class="form-control" style="resize: none" asp-for="Article.Summary"></textarea>
+                        <span class="small text-danger" asp-validation-for="Article.Summary"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="TagsString"></label>
+                        <label class="form-label" asp-for="Article.TagsString"></label>
                         <span class="small text-body-tertiary">(Comma Separated) (Optional)</span>
-                        <input class="form-control" asp-for="TagsString">
-                        <span class="small text-danger" asp-validation-for="TagsString"></span>
+                        <input class="form-control" asp-for="Article.TagsString">
+                        <span class="small text-danger" asp-validation-for="Article.TagsString"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Content"></label>
+                        <label class="form-label" asp-for="Article.Content"></label>
                         <br>
                         <span class="small text-body-tertiary">In Markdown format. Do not put the title here.</span>
-                        <textarea rows="20" class="form-control" style="resize: none" asp-for="Content"></textarea>
-                        <span class="small text-danger" asp-validation-for="Content"></span>
+                        <textarea rows="20" class="form-control" style="resize: none" asp-for="Article.Content"></textarea>
+                        <span class="small text-danger" asp-validation-for="Article.Content"></span>
                     </div>
 
                     <div class="text-center">

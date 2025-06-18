@@ -1,7 +1,7 @@
 ﻿namespace PersonalBlog.Models;
 
-public class CreateViewModel
+public class ArticleFormViewModel
 {
     public Article Article { get; set; } = new Article();
-    public bool IdInUse { get; set; } = false;
+    public string? Message { get; set; }
 }
