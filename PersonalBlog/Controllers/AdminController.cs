@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using PersonalBlog.Models;
 using PersonalBlog.Services.Articles;
 using PersonalBlog.Utils;
@@ -53,9 +54,19 @@ public class AdminController : Controller
     {
         if (!ModelState.IsValid) return View(viewModel);
 
+        var categories = Request.Form["Categories"];
+        if (categories.IsNullOrEmpty())
+        {
+            viewModel.Message = "You must pick at least one category";
+            return View(viewModel);
+        }
+        
         try
         {
-            viewModel.Article.PublishDate = DateTime.Now;
+            var article = viewModel.Article;
+            article.PublishDate = DateTime.Now;
+            article.Categories = categories.ToList()!;
+            
             await _articlesService.CreateAsync(viewModel.Article);
         }
         catch (InvalidOperationException e)
@@ -89,9 +100,16 @@ public class AdminController : Controller
         [Bind("Article,TagsString")] ArticleFormViewModel viewModel)
     {
         var article = viewModel.Article;
-
         if (id != article.Id) return NotFound();
         if (!ModelState.IsValid) return View(viewModel);
+        
+        var categories = Request.Form["Categories"];
+        if (categories.IsNullOrEmpty())
+        {
+            viewModel.Message = "You must pick at least one category";
+            return View(viewModel);
+        }
+        article.Categories = categories.ToList()!;
 
         var result = await _articlesService.UpdateAsync(article);
         if (!result) return NotFound();

@@ -32,6 +32,6 @@ public class Article
 
     [DataType(DataType.Date), DisplayName("Last Modified")]
     public DateTime? LastModified { get; set; }
-
     public List<string>? Tags { get; set; }
+    public List<string>? Categories { get; set; }
 }

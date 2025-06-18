@@ -5,8 +5,11 @@ namespace PersonalBlog.Models;
 
 public class ArticleFormViewModel
 {
+    public static string[] Categories =
+        ["Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Other"];
+
     public Article Article { get; set; } = new Article();
-    
+
     [DisplayName("Tags")]
     public string TagsString
     {
@@ -15,7 +18,7 @@ public class ArticleFormViewModel
             .Where(t => !string.IsNullOrEmpty(t))
             .Select(t => t.Trim())
             .ToList();
-    } 
-    
+    }
+
     public string? Message { get; set; }
 }

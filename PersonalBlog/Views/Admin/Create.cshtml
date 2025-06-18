@@ -36,6 +36,24 @@
                         <span class="small text-danger" asp-validation-for="Article.Summary"></span>
                     </div>
 
+                    <fieldset class="mb-3">
+                        <legend class="fs-6">Categories</legend>
+                        <p class="small text-body-tertiary">You must pick at least one.</p>
+
+                        <div class="row px-3">
+                            @foreach (var category in ArticleFormViewModel.Categories)
+                            {
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="@category" name="Categories"
+                                               value="@category">
+                                        <label for="@category">@category</label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
+
                     <div class="mb-3">
                         <label class="form-label" asp-for="TagsString"></label>
                         <span class="small text-body-tertiary">(Comma Separated) (Optional)</span>
