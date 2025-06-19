@@ -10,6 +10,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IArticlesService _articlesService;
+    private const string NotFoundView = "NotFound";
 
     public HomeController(ILogger<HomeController> logger, IArticlesService articlesService)
     {
@@ -33,11 +34,11 @@ public class HomeController : Controller
     public async Task<IActionResult> Article(string? id)
     {
         if (id == null)
-            return NotFound();
+            return View(NotFoundView);
         
         var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
-            return NotFound();
+            return View(NotFoundView);
         return View(article);
     }
 

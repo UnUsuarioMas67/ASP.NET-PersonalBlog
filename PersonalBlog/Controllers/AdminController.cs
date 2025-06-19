@@ -12,6 +12,7 @@ namespace PersonalBlog.Controllers;
 public class AdminController : Controller
 {
     private readonly IArticlesService _articlesService;
+    private const string NotFoundView = "NotFound";
 
     public AdminController(IArticlesService articlesService)
     {
@@ -34,13 +35,10 @@ public class AdminController : Controller
     public async Task<IActionResult> Article(string? id)
     {
         if (id == null)
-            return NotFound();
+            return View(NotFoundView);
 
         var article = await _articlesService.GetByIdAsync(id);
-        if (article == null)
-            return NotFound();
-
-        return View(article);
+        return article == null ? View(NotFoundView) : View(article);
     }
 
     public IActionResult Create()
@@ -80,11 +78,11 @@ public class AdminController : Controller
 
     public async Task<IActionResult> Edit(string? id)
     {
-        if (id == null) return NotFound();
+        if (id == null) return View(NotFoundView);
 
         var article = await _articlesService.GetByIdAsync(id);
         if (article == null)
-            return NotFound();
+            return View(NotFoundView);
 
         var viewModel = new ArticleFormViewModel
         {
@@ -100,7 +98,7 @@ public class AdminController : Controller
         [Bind("Article,TagsString")] ArticleFormViewModel viewModel)
     {
         var article = viewModel.Article;
-        if (id != article.Id) return NotFound();
+        if (id != article.Id) return View(NotFoundView);
         if (!ModelState.IsValid) return View(viewModel);
         
         var categories = Request.Form["Categories"];
@@ -119,10 +117,10 @@ public class AdminController : Controller
 
     public async Task<IActionResult> Delete(string? id)
     {
-        if (id == null) return NotFound();
+        if (id == null) return View(NotFoundView);
 
         var article = await _articlesService.GetByIdAsync(id);
-        if (article == null) return NotFound();
+        if (article == null) return View(NotFoundView);
 
         return View(article);
     }
@@ -133,8 +131,7 @@ public class AdminController : Controller
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
         var result = await _articlesService.DeleteAsync(id);
-        if (!result) return NotFound();
-        return RedirectToAction(nameof(Index));
+        return result ? RedirectToAction(nameof(Index)) : View(NotFoundView);
     }
 
     public async Task<IActionResult> Logout()
