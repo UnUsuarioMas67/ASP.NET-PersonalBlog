@@ -8,6 +8,12 @@ namespace PersonalBlog.Models;
 [SuppressMessage("ReSharper", "PropertyCanBeMadeInitOnly.Global")]
 public class Article
 {
+    public static readonly string[] AvailableCategories =
+    [
+        "Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Home", "Wellness",
+        "Self-Improvement", "Education", "Productivity", "Lifestyle", "Travel", "Other"
+    ];
+
     [Required, StringLength(150), YamlIgnore]
     public string Id { get; set; } = string.Empty;
 

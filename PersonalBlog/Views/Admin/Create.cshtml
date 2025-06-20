@@ -41,7 +41,7 @@
                         <p class="small text-body-tertiary">You must pick at least one.</p>
 
                         <div class="row px-3">
-                            @foreach (var category in ArticleFormViewModel.Categories)
+                            @foreach (var category in Article.AvailableCategories)
                             {
                                 <div class="col-12 col-sm-4">
                                     <div class="form-check">
