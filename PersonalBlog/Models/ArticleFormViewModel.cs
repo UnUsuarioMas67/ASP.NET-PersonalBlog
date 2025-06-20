@@ -5,7 +5,7 @@ namespace PersonalBlog.Models;
 
 public class ArticleFormViewModel
 {
-    public static string[] Categories =
+    public static readonly string[] Categories =
     [
         "Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Home", "Wellness",
         "Self-Improvement", "Education", "Productivity", "Lifestyle", "Travel", "Other"
