@@ -69,7 +69,7 @@ public class AdminController : Controller
         }
         catch (InvalidOperationException e)
         {
-            viewModel.Message = "Id already in use";
+            viewModel.Message = "Filename already in use";
             return View(viewModel);
         }
 
