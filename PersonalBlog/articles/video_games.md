@@ -1,11 +1,16 @@
 ---
-title: The Evolution of Video Games
+title: 'The Evolution of Video Games: From 8-Bit to Virtual Futures'
 summary: Video games have come a long way since their humble beginnings.
 publish_date: 2025-06-06
 last_modified: 2025-06-08
+tags:
+  - gaming
+  - video games
+  - games
+categories:
+  - Entertainment
+  - Gaming
 ---
-# The Evolution of Video Games: From 8-Bit to Virtual Futures
-
 Video games have come a long way since their humble beginnings. What was once a pixelated pastime limited to a few basic mechanics is now a multi-billion-dollar industry encompassing open worlds, virtual realities, and complex interactive narratives.
 
 ## From Arcades to Home Consoles

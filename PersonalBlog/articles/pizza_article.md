@@ -1,12 +1,17 @@
 ---
-id: pizza-history-2025
-title: "The Irresistible World of Pizza: A Slice of History and Culture"
+title: 'The Irresistible World of Pizza: A Slice of History and Culture'
 summary: "Explore the fascinating history, cultural significance, and global variations of one of the world's most beloved foods: pizza."
 publish_date: 2025-06-06
-last_modified: 2025-06-06
+last_modified: 2025-06-17
+tags:
+- pizza
+- history
+- italy
+- italian culture
+- culture
+categories:
+- Food
 ---
-
-# The Irresistible World of Pizza: A Slice of History and Culture
 
 Pizza is more than just a popular dish—it's a global phenomenon. From its humble origins in Naples, Italy, to its status as a beloved staple in nearly every corner of the world, pizza has evolved in countless ways while retaining its essential charm.
 
