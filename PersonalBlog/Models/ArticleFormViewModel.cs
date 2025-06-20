@@ -6,7 +6,10 @@ namespace PersonalBlog.Models;
 public class ArticleFormViewModel
 {
     public static string[] Categories =
-        ["Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Other"];
+    [
+        "Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Home", "Wellness",
+        "Self-Improvement", "Education", "Productivity", "Lifestyle", "Travel", "Other"
+    ];
 
     public Article Article { get; set; } = new Article();
 
