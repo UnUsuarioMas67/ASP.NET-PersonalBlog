@@ -18,14 +18,13 @@ public class HomeController : Controller
         _articlesService = articlesService;
     }
 
-    public async Task<IActionResult> Index(string? searchString)
+    public async Task<IActionResult> Index(string? searchString, string? category)
     {
         var articles = await _articlesService.GetAllAsync();
         
         var viewModel = new ArticleFilterViewModel
         {
-            SearchString = searchString,
-            Articles = articles.FilteredBy(searchString),
+            Articles = articles.FilteredBy(searchString, category),
         };
         
         return View(viewModel);

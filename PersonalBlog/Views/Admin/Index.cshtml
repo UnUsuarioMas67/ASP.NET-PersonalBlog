@@ -13,6 +13,12 @@
                     <input class="form-control" placeholder="Search" asp-for="SearchString">
                     <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
                 </div>
+                
+                <div class="mb-3">
+                    <select class="form-select" asp-items="Model.Categories" asp-for="Category">
+                        <option selected value="">- All -</option>
+                    </select>
+                </div>
             </form>
             
             <a class="link-primary d-block mb-4 h5 text-center" asp-action="Create">+ Create New</a>
