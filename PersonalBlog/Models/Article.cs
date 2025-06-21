@@ -10,7 +10,7 @@ public class Article
 {
     public static readonly string[] AvailableCategories =
     [
-        "Personal", "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Home", "Wellness",
+        "Tech", "Health", "Food", "Entertainment", "Hobbies", "Gaming", "Home", "Wellness",
         "Self-Improvement", "Education", "Productivity", "Lifestyle", "Travel", "Other"
     ];
 
